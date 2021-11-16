@@ -1,0 +1,8 @@
+venv/
+.vscode/
+*.pyc
+
+main/settings.py
+src/media
+_migrations/*
+!_migrations/__init__.py
