@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-2*flk@5_o=0nqu@#jth6+!61il4_-=1vl%)v7ci#dty%rw!ugj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
+AUTH_USER_MODEL = 'authe.Author'
 
 
 # Application definition
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop',
+    'authe'
 ]
 
 MIDDLEWARE = [
