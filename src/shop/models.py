@@ -9,7 +9,7 @@ class Category(models.Model):
         verbose_name = 'категоория'
         verbose_name_plural = 'категории'
 
-    def __init__(self):
+    def __str__(self):
         return f"{self.name}"
 
 
@@ -21,24 +21,35 @@ class Size(models.Model):
         verbose_name = 'размер'
         verbose_name_plural = 'размеры'
 
-    def __init__(self):
+    def __str__(self):
+        return f"{self.name}"
+
+class Color(models.Model):
+    name = models.CharField(max_length=20, verbose_name='цвет', blank=False)
+
+    class Meta:
+        verbose_name = 'цвет'
+        verbose_name_plural = 'цвета'
+
+    def __str__(self):
         return f"{self.name}"
 
 
 
 class Product(models.Model):
     name = models.CharField(max_length=30, verbose_name='одежда')
+    description = models.TextField(max_length=1000, verbose_name='описание')
     category = models.ForeignKey(Category, on_delete=CASCADE, related_name='категории')
     price = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='цена')
-    count = models.ImageField()
+    color = models.ManyToManyField(Color, verbose_name='цвет')
     available = models.BooleanField(default=True)
     image = models.ImageField(upload_to='images', blank=True)
-    size = models.ForeignKey(Size, on_delete=CASCADE, related_name='размер')
+    size = models.ManyToManyField(Size, verbose_name='размеры')
 
     class Meta:
         verbose_name_plural = 'одежда'
 
-    def __init__(self):
+    def __str__(self):
         return f"{self.name}"
 
 
@@ -50,7 +61,7 @@ class Cart(models.Model):
         ('canceled', 'Canceled') 
     ) 
     owner = models.ForeignKey(Author, on_delete=CASCADE, related_name='владелец')
-    number = models.CharField(max_length=20, verbose_name='номер владельца')
+    email = models.EmailField(unique=True, verbose_name='Почта')
     created = models.DateField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='created')
 
@@ -58,7 +69,7 @@ class Cart(models.Model):
         verbose_name = 'корзина'
         verbose_name_plural = 'корзины'
 
-    def __init__(self):
+    def __str__(self):
         return f"{self.owner}"
 
 class CartProduct(models.Model):
@@ -67,10 +78,10 @@ class CartProduct(models.Model):
     count = models.IntegerField()
 
     class Meta:
-        verbose_name = 'продукт'
-        verbose_name_plural = 'продукты'
+        verbose_name = 'одежда в корзине'
+        verbose_name_plural = 'одежда в корзине'
 
-    def __init__(self):
+    def __str__(self):
         return f"{self.product_name}"
 
     

@@ -29,6 +29,20 @@ ALLOWED_HOSTS = ['127.0.0.1']
 AUTH_USER_MODEL = 'authe.Author'
 
 
+EMAIL_FROM = 'dasifue@gmail.com'
+EMAIL_BCC = 'Qualle'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'dasifue@gmail.com'
+EMAIL_HOST_PASSWORD = 'pain0404'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+SERVER_EMAIL = 'zak.kane1234567890@gmail.com'
+
+
 # Application definition
 
 INSTALLED_APPS = [

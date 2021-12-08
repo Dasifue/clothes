@@ -50,7 +50,7 @@ def confirm_email(request, code):
 
 def log_in(request):
     form = LoginForm()
-    if request.method == 'POST':
+    if request.method == 'POST' or register():
         user = authenticate(username = request.POST['username'], password = request.POST['password'])
         if user:
             auth_login(request, user)
@@ -60,4 +60,4 @@ def log_in(request):
 
 def log_out(request):
     logout(request)
-
+    return redirect('shop:all_products')

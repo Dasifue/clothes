@@ -38,8 +38,6 @@ class MainUserManager(BaseUserManager):
 class Author(AbstractUser):
     username = models.CharField(max_length=100, blank=False, unique=True,
                                 db_index=True, verbose_name='Username', null=True)
-    first_name = models.CharField(max_length=200, blank=True, null=True, verbose_name='Имя')
-    last_name = models.CharField(max_length=200, blank=True, null=True, verbose_name='Фамилия')
     email = models.EmailField(unique=True, verbose_name='Почта')
     password = models.CharField(blank=True, null=True, max_length=500)
     created_at = models.DateTimeField(auto_now_add=True,null=True, blank=True)
