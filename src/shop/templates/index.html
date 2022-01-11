@@ -46,9 +46,6 @@
             {% endif %}
             {% if user.is_authenticated == False %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'authe:login' %}">login</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="{% url 'authe:register' %}">register</a>
             </li>
             {% endif %}

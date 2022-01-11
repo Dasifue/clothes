@@ -1,0 +1,10 @@
+{% extends 'index.html' %}
+{% block content %}
+
+{{cart.owner}}
+
+{% for product in products %}
+{{product.name}}
+{% endfor %}
+
+{% endblock %}

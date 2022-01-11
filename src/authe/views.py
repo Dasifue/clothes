@@ -5,8 +5,9 @@ from .utils import send_code_mail
 from django.contrib.auth import authenticate 
 from django.contrib.auth import  login as auth_login
 from django.contrib.auth import logout
+from shop.models import Cart
+from shop.views import *
 
-# Create your views here.
 def register(request):
     form = Register()
     if request.method == 'POST':
@@ -50,14 +51,29 @@ def confirm_email(request, code):
 
 def log_in(request):
     form = LoginForm()
-    if request.method == 'POST' or register():
-        user = authenticate(username = request.POST['username'], password = request.POST['password'])
-        if user:
-            auth_login(request, user)
-            return render(request, 'reply.html', {'message':'вы вошли', 'success':True})
-        return render(request, 'reply.html', {'message':'не удалось войти в аккаунт', 'success':False})
+    if request.method == 'POST':
+        result = authentication(request)
+        return render(request, 'reply.html', result)
+
     return render(request, 'log_in.html', {'form':form})
+
+def authentication(request):
+    user = authenticate(username = request.POST['username'], password = request.POST['password'])
+    return login_result(user, request)       
+
+
+def login_result(user, request):
+    if user:
+        auth_login(request, user)
+        cart_create(request)
+        return {'message':'вы вошли', 'success':True}
+
+    return {'message':'не удалось войти в аккаунт', 'success':False}
+
+
+    
 
 def log_out(request):
     logout(request)
     return redirect('shop:all_products')
+
